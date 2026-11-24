@@ -106,7 +106,11 @@
 
 @layer base {
   * { border-color: var(--border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
   body {
     background: var(--background);
     color: var(--foreground);
@@ -158,6 +162,11 @@
     height: 22px;
     background: transparent;
     cursor: pointer;
+  }
+  button,
+  a,
+  [role="button"] {
+    touch-action: manipulation;
   }
   .range::-webkit-slider-runnable-track {
     height: 4px;

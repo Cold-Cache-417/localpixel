@@ -1,4 +1,5 @@
 import * as React from "react"
+import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 export function Field({
@@ -75,6 +76,7 @@ export function Segmented<T extends string>({
   size?: "sm" | "md"
 }) {
   const groupId = React.useId()
+  const reduce = useReducedMotion()
   return (
     <div
       role="radiogroup"
@@ -84,13 +86,15 @@ export function Segmented<T extends string>({
       {options.map((option) => {
         const active = option.value === value
         return (
-          <button
+          <motion.button
             key={option.value}
             type="button"
             role="radio"
             id={`${groupId}-${option.value}`}
             aria-checked={active}
             onClick={() => onChange(option.value)}
+            whileTap={reduce ? undefined : { scale: 0.96 }}
+            transition={{ duration: 0.14, ease: [0.23, 1, 0.32, 1] }}
             className={cn(
               "relative rounded-[8px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
               size === "sm" ? "h-7 px-2.5 text-[12px]" : "h-8 px-3 text-[13px]",
@@ -100,7 +104,7 @@ export function Segmented<T extends string>({
             )}
           >
             {option.label}
-          </button>
+          </motion.button>
         )
       })}
     </div>
